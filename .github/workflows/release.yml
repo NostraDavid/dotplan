@@ -54,7 +54,7 @@ jobs:
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
           version="${RELEASE_TAG#v}"
-          asset="dotplan-$version.vsix"
+          asset="nostradavid-dotplan-$version.vsix"
           nix develop --command node scripts/release-notes.mjs "$version" > release-notes.md
           if gh release view "$RELEASE_TAG" --json assets --jq '.assets[].name' | grep -Fxq "$asset"; then
             echo "Keeping the existing release asset unchanged."
@@ -95,19 +95,19 @@ jobs:
           [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
           [[ "$(gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft')" == false ]]
           version="${RELEASE_TAG#v}"
-          gh release download "$RELEASE_TAG" --pattern "dotplan-$version.vsix"
-          unzip -p "dotplan-$version.vsix" extension/package.json |
-            jq -e --arg version "$version" '.publisher == "nostradavid" and .name == "dotplan" and .version == $version'
+          gh release download "$RELEASE_TAG" --pattern "nostradavid-dotplan-$version.vsix"
+          unzip -p "nostradavid-dotplan-$version.vsix" extension/package.json |
+            jq -e --arg version "$version" '.publisher == "nostradavid" and .name == "nostradavid-dotplan" and .version == $version'
       - name: Publish the same VSIX to Marketplace
         # shortcut: replace VSCE_PAT with --oidc when Marketplace enables trusted publishing, before 2026-12-01.
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
-        run: nix develop --command npm exec -- vsce publish --packagePath "dotplan-${RELEASE_TAG#v}.vsix" --skip-duplicate
+        run: nix develop --command npm exec -- vsce publish --packagePath "nostradavid-dotplan-${RELEASE_TAG#v}.vsix" --skip-duplicate
       - name: Verify the published version
         run: |
           for attempt in {1..12}; do
             echo "Checking Marketplace version, attempt $attempt of 12."
-            if nix develop --command npm exec -- vsce show nostradavid.dotplan --json > published-extension.json &&
+            if nix develop --command npm exec -- vsce show nostradavid.nostradavid-dotplan --json > published-extension.json &&
               jq -e --arg version "${RELEASE_TAG#v}" 'any(.versions[]?; .version == $version)' published-extension.json; then
               echo "Marketplace lists $RELEASE_TAG."
               exit 0

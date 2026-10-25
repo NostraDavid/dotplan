@@ -10,7 +10,9 @@ assert.equal(manifest.version, version, 'The tag must match package.json.');
 assert.equal(lock.version, version, 'Update package-lock.json with npm version.');
 assert.equal(lock.packages[''].version, version, 'The lockfile root version must match.');
 assert.equal(manifest.publisher, 'nostradavid');
-assert.equal(manifest.name, 'dotplan');
+assert.equal(manifest.name, 'nostradavid-dotplan');
+assert.equal(lock.name, manifest.name, 'The lockfile package name must match.');
+assert.equal(lock.packages[''].name, manifest.name, 'The lockfile root package name must match.');
 assert.equal(manifest.__metadata, undefined, 'Do not reuse the upstream Marketplace identity.');
 
 const changelog = fs.readFileSync(new URL('CHANGELOG.md', root), 'utf8');

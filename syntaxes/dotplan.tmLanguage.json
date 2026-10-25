@@ -1,5 +1,58 @@
 {
   "name": "dotplan",
   "scopeName": "source.dotplan",
-  "patterns": []
+  "patterns": [
+    {
+      "match": "^[ \\t]*\\+\\+(?=[ \\t]|$).*$",
+      "name": "markup.bold.urgent.dotplan"
+    },
+    {
+      "match": "^[ \\t]*\\+(?=[ \\t]|$).*$",
+      "name": "keyword.control.todo.dotplan"
+    },
+    {
+      "match": "^[ \\t]*-(?=[ \\t]|$).*$",
+      "name": "comment.line.done.dotplan"
+    },
+    {
+      "match": "^[ \\t]*%(?=[ \\t]|$).*$",
+      "name": "string.unquoted.event.dotplan"
+    },
+    {
+      "match": "^[ \\t]*#(?=[ \\t]|$).*$",
+      "name": "comment.line.remark.dotplan"
+    },
+    {
+      "match": "^[ \\t]*\\?(?=[ \\t]|$).*$",
+      "name": "entity.name.function.question.dotplan"
+    },
+    {
+      "match": "^[ \\t]*!(?=[ \\t]|$).*$",
+      "name": "constant.language.answer.dotplan"
+    },
+    {
+      "match": "^[ \\t]*@(?=[ \\t]|$).*$",
+      "name": "entity.name.type.idea.dotplan"
+    },
+    {
+      "match": "^[ \\t]*&(?=[ \\t]|$).*$",
+      "name": "support.function.command.dotplan"
+    },
+    {
+      "match": "^[ \\t]*\\$(?=[ \\t]|$).*$",
+      "name": "keyword.other.architecture.dotplan"
+    },
+    {
+      "match": "^[ \\t]*\\^(?=[ \\t]|$).*$",
+      "name": "constant.numeric.household.dotplan"
+    },
+    {
+      "match": "^[ \\t]*===(?=[ \\t]|$).*$",
+      "name": "markup.heading.weekend.dotplan"
+    },
+    {
+      "match": "^[ \\t]*==(?=[ \\t]|$).*$",
+      "name": "markup.heading.day.dotplan"
+    }
+  ]
 }

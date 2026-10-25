@@ -1,8 +1,8 @@
 {
-  "name": "dotplan",
+  "name": "nostradavid-dotplan",
   "displayName": "dotplan by NostraDavid",
   "version": "1.0.0",
-  "description": "A language extension foundation for .plan files. The grammar is deliberately empty until the syntax specification is supplied.",
+  "description": "Syntax highlighting for .plan files, with task, question, idea, command, debt, cleanup, and day markers.",
   "categories": [
     "Programming Languages"
   ],

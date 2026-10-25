@@ -12,4 +12,4 @@ Keep this extension in its own repository and VSIX, with a stable NostraDavid pu
 
 ## Consequences
 
-Each product can receive small releases independently. Nixcfg installs the exact release artifact and replaces a legacy extension only after successful installation. Dotplan syntax remains a separate follow-up requirement.
+Each product can receive small releases independently. Nixcfg installs the exact release artifact and replaces a legacy extension only after successful installation. The user-supplied line markers live in a TextMate grammar without an extension runtime.
