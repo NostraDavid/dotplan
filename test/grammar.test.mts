@@ -7,7 +7,7 @@ import textmate from 'vscode-textmate';
 
 const require = createRequire(import.meta.url);
 const wasm = fs.readFileSync(require.resolve('vscode-oniguruma/release/onig.wasm'));
-await oniguruma.loadWASM(wasm.buffer.slice(wasm.byteOffset, wasm.byteOffset + wasm.byteLength));
+await oniguruma.loadWASM(wasm);
 const registry = new textmate.Registry({
   onigLib: Promise.resolve({
     createOnigScanner: (patterns) => new oniguruma.OnigScanner(patterns),
@@ -19,10 +19,12 @@ const registry = new textmate.Registry({
       : null,
 });
 
-const grammar = await registry.loadGrammar('source.dotplan');
+const loadedGrammar = await registry.loadGrammar('source.dotplan');
+assert.ok(loadedGrammar, 'The registered grammar must load.');
+const grammar = loadedGrammar;
 
 test('unmarked text stays plain in the VS Code TextMate engine', () => {
-  const tokens = grammar.tokenizeLine('A plain plan line.').tokens;
+  const tokens = grammar.tokenizeLine('A plain plan line.', null).tokens;
   assert.equal(tokens.length, 1);
   assert.deepEqual(tokens[0].scopes, ['source.dotplan']);
 });
@@ -50,7 +52,7 @@ const legend = [
 for (const [marker, description, scope] of legend) {
   test(`${marker} highlights its whole line as ${description}`, () => {
     for (const line of [`${marker} ${description}`, `  \t${marker}\t${description}`, marker]) {
-      const { tokens } = grammar.tokenizeLine(line);
+      const { tokens } = grammar.tokenizeLine(line, null);
       assert.ok(tokens.every((token) => token.scopes.includes(scope)), JSON.stringify({ line, tokens }));
     }
   });
@@ -74,7 +76,7 @@ test('inline symbols and unseparated or unknown prefixes stay plain', () => {
       '  plain indented text',
     ]
   ) {
-    const { tokens } = grammar.tokenizeLine(line);
+    const { tokens } = grammar.tokenizeLine(line, null);
     assert.deepEqual(tokens.map((token) => token.scopes), [['source.dotplan']], line);
   }
 });

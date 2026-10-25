@@ -1,7 +1,7 @@
 {
   "name": "nostradavid-dotplan",
   "displayName": "dotplan by NostraDavid",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Syntax highlighting for .plan files, with task, question, idea, command, debt, cleanup, and day markers.",
   "categories": [
     "Programming Languages"
@@ -18,11 +18,12 @@
   "author": "NostraDavid",
   "publisher": "nostradavid",
   "scripts": {
-    "test": "node --test test/*.test.mjs",
-    "build": "node scripts/validate.mjs",
+    "test": "npm run type-check && node --test test/*.test.mts",
+    "build": "node scripts/validate.mts",
     "vscode:prepublish": "npm run build",
     "package": "vsce package --no-dependencies --githubBranch master",
-    "release:check": "node scripts/release-notes.mjs"
+    "release:check": "node scripts/release-notes.mts",
+    "type-check": "tsc --noEmit"
   },
   "contributes": {
     "languages": [
@@ -56,7 +57,9 @@
     }
   },
   "devDependencies": {
+    "@types/node": "24.19.2",
     "@vscode/vsce": "4.0.0",
+    "typescript": "5.9.3",
     "vscode-oniguruma": "2.0.1",
     "vscode-textmate": "9.3.2"
   },
