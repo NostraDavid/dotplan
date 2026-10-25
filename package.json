@@ -1,0 +1,73 @@
+{
+  "name": "dotplan",
+  "displayName": "dotplan by NostraDavid",
+  "version": "1.0.0",
+  "description": "A language extension foundation for .plan files. The grammar is deliberately empty until the syntax specification is supplied.",
+  "categories": [
+    "Programming Languages"
+  ],
+  "homepage": "https://github.com/NostraDavid/dotplan#readme",
+  "bugs": {
+    "url": "https://github.com/NostraDavid/dotplan/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NostraDavid/dotplan.git"
+  },
+  "license": "MIT",
+  "author": "NostraDavid",
+  "publisher": "nostradavid",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "build": "node scripts/validate.mjs",
+    "vscode:prepublish": "npm run build",
+    "package": "vsce package --no-dependencies --githubBranch master",
+    "release:check": "node scripts/release-notes.mjs"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "dotplan",
+        "aliases": [
+          "dotplan",
+          ".plan"
+        ],
+        "filenames": [
+          ".plan"
+        ],
+        "extensions": [
+          ".plan"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dotplan",
+        "scopeName": "source.dotplan",
+        "path": "./syntaxes/dotplan.tmLanguage.json"
+      }
+    ]
+  },
+  "overrides": {
+    "@vscode/vsce": {
+      "@azure/identity": "4.13.0",
+      "uuid": "11.1.1"
+    }
+  },
+  "devDependencies": {
+    "@vscode/vsce": "4.0.0",
+    "vscode-oniguruma": "2.0.1",
+    "vscode-textmate": "9.3.2"
+  },
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=24 <25",
+      "onFail": "error"
+    }
+  }
+}
